@@ -8,35 +8,31 @@ $(document).ready(function() {
     $.ajax({
         method: 'GET',
         url: 'http://www.omdbapi.com/?t=' + title
-      }).done(function (data){
-        var poster = data.Poster;
-        var title = data.Title
-        $('#poster').append('<img src="' + data.Poster + '">');
-        $('<h1>' + title + '</h1>').insertBefore('img');
+    }).done(function (data){
 
-        console.log(poster);
-        console.log(data);
+      var poster = data.Poster;
+      var title = data.Title
 
-        $.ajax({
-          method: 'GET',
-          url: 'http://www.omdbapi.com/?t=' + title
-        }).done(function (data){
+      $('#poster').append('<img src="' + data.Poster + '">');
+      $('<h1>' + title + '</h1>').insertBefore('img');
 
-          var genre = data.Genre;
-          var genres = genre.split(', ');
+      console.log(poster);
+      console.log(data);
 
-          console.log(genre);
-          console.log(genres);
+      var genre = data.Genre;
+      var genres = genre.split(', ');
 
-          var counter = 1;
+      console.log(genre);
+      console.log(genres);
 
-          for (var i = 0; i < genres.length; i++) {
+      var counter = 1;
 
-            $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+      for (var i = 0; i < genres.length; i++) {
 
-            counter++;
-          }
-        });
+        $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+
+        counter++;
+      }
     });
   });
 });
