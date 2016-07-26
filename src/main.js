@@ -25,30 +25,27 @@ $(document).ready(function() {
 
       $('.col-md-4:nth-of-type(' + buttonCounter + ')').append('<img src="' + data.Poster + '">');
 
-
-
-      // console.log(poster);
-      // console.log(data);
-      //if [i][j] === [i][j] splice?
-
       var genre = data.Genre;
       console.log(genre);
       var genres = genre.split(', ');
-
-      genreArray.push(genres);
-      console.log(genreArray);
-
-      // console.log(genre);
-      // console.log(genres);
 
       var counter = 1;
 
       for (var i = 0; i < genres.length; i++) {
 
-        $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+        if (!genreArray.includes(genres[i]))
+        {
+          genreArray.push(genres[i]);
+          console.log(genreArray);
 
-        counter++;
+          $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+
+          counter++;
+        }
       }
+
+
+      // console.log(genreArray);
     });
   });
 });
