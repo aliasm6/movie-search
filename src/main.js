@@ -1,7 +1,13 @@
 $(document).ready(function() {
 
+  var buttonCounter = 0;
+  var genreArray = [];
+
   $('form').submit(function(event) {
     event.preventDefault();
+
+    buttonCounter++;
+    console.log(buttonCounter);
 
     var title = $('#searchInfo').val();
 
@@ -9,30 +15,60 @@ $(document).ready(function() {
         method: 'GET',
         url: 'http://www.omdbapi.com/?t=' + title
     }).done(function (data){
-
+      var genre = data.Genre;
+      console.log(genre);
+      var genres = genre.split(', ');
       var poster = data.Poster;
       var title = data.Title
 
-      $('#poster').append('<img src="' + data.Poster + '">');
-      $('<h1>' + title + '</h1>').insertBefore('img');
+      $('.row').append('<div class="col-md-4"></div>');
 
-      console.log(poster);
-      console.log(data);
+      $('.col-md-4:nth-of-type(' + buttonCounter + ')').append('<h2 class="' + genres.join(' ') + '">' + title + '</h2>');
 
-      var genre = data.Genre;
-      var genres = genre.split(', ');
+      $('.col-md-4:nth-of-type(' + buttonCounter + ')').append('<img src="' + data.Poster + '" class="' + genres.join(' ') + '">');
 
-      console.log(genre);
-      console.log(genres);
+
 
       var counter = 1;
 
       for (var i = 0; i < genres.length; i++) {
 
-        $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+        console.log(genres[i]);
 
-        counter++;
+        if (!genreArray.includes(genres[i]))
+        {
+          genreArray.push(genres[i]);
+          console.log(genreArray);
+
+          $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+
+          counter++;
+        }
       }
+
+      $('#searchInfo').val('');
+
+
+
+      $('select').change(function () {
+      $('option:selected').each(function () {
+
+        var cLass = $(this).text();
+        console.log(cLass);
+
+        $('img').css('display', 'block');
+        $('h2').css('display', 'block');
+
+        if ($('img').hasClass(cLass))
+        {
+          $('img:not(.' + cLass + ')').css('display', 'none');
+          $('h2:not(.' + cLass + ')').css('display', 'none');
+        }
+      });
+    });
+
+
+      // console.log(genreArray);
     });
   });
 });
