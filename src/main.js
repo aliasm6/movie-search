@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  console.log('test');
 
   $('form').submit(function(event) {
     event.preventDefault();
@@ -11,12 +10,32 @@ $(document).ready(function() {
         url: 'http://www.omdbapi.com/?t=' + title
       }).done(function (data){
         var poster = data.Poster;
+        var title = data.Title
+        $('#poster').append('<img src"' + data.Poster + '"');
+        $('img').append('<h1>' + title + '</h1>');
 
-
-
-        console.log(poster);
         console.log(data);
 
+        $.ajax({
+          method: 'GET',
+          url: 'http://www.omdbapi.com/?t=' + title
+        }).done(function (data){
+
+          var genre = data.Genre;
+          var genres = genre.split(', ');
+
+          console.log(genre);
+          console.log(genres);
+
+          var counter = 1;
+
+          for (var i = 0; i < genres.length; i++) {
+
+            $('<option>' + genres[i] + '</option>').insertAfter('option:nth-child(' + counter + ')');
+
+            counter++;
+          }
+        });
     });
   });
 });
