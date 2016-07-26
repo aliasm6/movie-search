@@ -11,7 +11,7 @@ $(document).ready(function() {
       }).done(function (data){
         var poster = data.Poster;
         var title = data.Title
-        $('#poster').append('<img src"' + data.Poster + '"');
+        $('#poster').append('<img src"' + data.Poster + '">');
         $('img').append('<h1>' + title + '</h1>');
 
         console.log(data);
