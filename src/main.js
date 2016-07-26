@@ -1,7 +1,13 @@
 $(document).ready(function() {
 
+  var buttonCounter = 0;
+  var genreArray = [];
+
   $('form').submit(function(event) {
     event.preventDefault();
+
+    buttonCounter++;
+    console.log(buttonCounter);
 
     var title = $('#searchInfo').val();
 
@@ -13,17 +19,27 @@ $(document).ready(function() {
       var poster = data.Poster;
       var title = data.Title
 
-      $('#poster').append('<img src="' + data.Poster + '">');
-      $('<h1>' + title + '</h1>').insertBefore('img');
+      $('.row').append('<div class="col-md-4"></div>');
 
-      console.log(poster);
-      console.log(data);
+      $('.col-md-4:nth-of-type(' + buttonCounter + ')').append('<h1>' + title + '</h1>');
+
+      $('.col-md-4:nth-of-type(' + buttonCounter + ')').append('<img src="' + data.Poster + '">');
+
+
+
+      // console.log(poster);
+      // console.log(data);
+      //if [i][j] === [i][j] splice?
 
       var genre = data.Genre;
+      console.log(genre);
       var genres = genre.split(', ');
 
-      console.log(genre);
-      console.log(genres);
+      genreArray.push(genres);
+      console.log(genreArray);
+
+      // console.log(genre);
+      // console.log(genres);
 
       var counter = 1;
 
