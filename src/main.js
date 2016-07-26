@@ -11,9 +11,10 @@ $(document).ready(function() {
       }).done(function (data){
         var poster = data.Poster;
         var title = data.Title
-        $('#poster').append('<img src"' + data.Poster + '"');
-        $('img').append('<h1>' + title + '</h1>');
+        $('#poster').append('<img src="' + data.Poster + '">');
+        $('<h1>' + title + '</h1>').insertBefore('img');
 
+        console.log(poster);
         console.log(data);
 
         $.ajax({
